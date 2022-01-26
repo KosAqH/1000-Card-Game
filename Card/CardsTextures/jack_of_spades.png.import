@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/king_of_clubs2.png-53edc885c9cdd993a99a5cceb9889e93.stex"
+path="res://.import/jack_of_spades.png-75633a9d965cbd2de2daa99f2927f1c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Card/CardsTextures/king_of_clubs2.png"
-dest_files=[ "res://.import/king_of_clubs2.png-53edc885c9cdd993a99a5cceb9889e93.stex" ]
+source_file="res://Card/CardsTextures/jack_of_spades.png"
+dest_files=[ "res://.import/jack_of_spades.png-75633a9d965cbd2de2daa99f2927f1c3.stex" ]
 
 [params]
 

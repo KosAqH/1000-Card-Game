@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/queen_of_spades2.png-fc4b3066d02ebe6faba5efa510b6e60d.stex"
+path="res://.import/queen_of_diamonds.png-5d0fb3858f38ebcd7996bd11b72a91e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Card/CardsTextures/queen_of_spades2.png"
-dest_files=[ "res://.import/queen_of_spades2.png-fc4b3066d02ebe6faba5efa510b6e60d.stex" ]
+source_file="res://Card/CardsTextures/queen_of_diamonds.png"
+dest_files=[ "res://.import/queen_of_diamonds.png-5d0fb3858f38ebcd7996bd11b72a91e0.stex" ]
 
 [params]
 

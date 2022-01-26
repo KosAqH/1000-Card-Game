@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jack_of_hearts2.png-8ff0a39e7e15b9bde8cae3688bbed480.stex"
+path="res://.import/jack_of_diamonds.png-42049107069b46c08baa1c79cf1328df.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Card/CardsTextures/jack_of_hearts2.png"
-dest_files=[ "res://.import/jack_of_hearts2.png-8ff0a39e7e15b9bde8cae3688bbed480.stex" ]
+source_file="res://Card/CardsTextures/jack_of_diamonds.png"
+dest_files=[ "res://.import/jack_of_diamonds.png-42049107069b46c08baa1c79cf1328df.stex" ]
 
 [params]
 

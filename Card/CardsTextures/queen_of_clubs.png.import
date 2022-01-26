@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/king_of_hearts2.png-d34f6c081aa5aa1d917a16e6d39972ec.stex"
+path="res://.import/queen_of_clubs.png-3d33ee3760de5b1d31f7e9ba28d33b37.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Card/CardsTextures/king_of_hearts2.png"
-dest_files=[ "res://.import/king_of_hearts2.png-d34f6c081aa5aa1d917a16e6d39972ec.stex" ]
+source_file="res://Card/CardsTextures/queen_of_clubs.png"
+dest_files=[ "res://.import/queen_of_clubs.png-3d33ee3760de5b1d31f7e9ba28d33b37.stex" ]
 
 [params]
 
