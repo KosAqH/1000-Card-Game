@@ -1,0 +1,6 @@
+1. Algorytm dla wyboru karty, gdy przeciwnik rzuca pierwszy:
+	1. Jeśli posiadasz kartę w tym samym kolorze ale wyższą od tej na stole to rzuć ją. W przeciwnym razie...
+	2. Jeśli posiadasz kartę w tym samym kolorze ale niższą od tej na stole to rzuć ją. W przeciwnym razie...
+	3. Jeśli posiadasz kartę w kolorze, który był zameldowany to rzuć nią. W przeciwnym razie
+	4. Rzuć najniższą posiadaną kartę.
+2. Algorytm dla wyboru karty, gdy AI rzuca pierwsze:

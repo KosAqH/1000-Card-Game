@@ -1,6 +1,7 @@
-extends Node2D
+extends "res://Player/Player.gd"
 
-onready var hand = $Hand
 
-func set_cards(c):
-	hand.cards = c
+func make_move():
+	print("Ruch AI")
+	var card = hand.cards[randi() % hand.cards.size()]
+	return card
