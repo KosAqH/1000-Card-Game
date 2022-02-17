@@ -22,9 +22,18 @@ func setup(col, type, pts):
 	FILENAME += type + "_of_" + color + ".png"
 
 func show_card(pos):
+	"""
+	Function is adding visual scene to particular card
+	That means that we may see it
+	Parameters:
+		pos - position of card on the screen
+	"""
 	var v = visual.instance()
 	add_child(v)
 	v.setup(FILENAME, pos)
 
 func print_details():
+	"""
+	Just function for easier debugging - i'm gonna remove it later
+	"""
 	print(str(color) + " " + str(card_type) + " " + str(points))

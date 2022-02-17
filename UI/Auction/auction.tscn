@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/Auction/auctionUI.gd" type="Script" id=1]
+
+[node name="Auction" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bid" type="Button" parent="."]
+margin_left = 200.0
+margin_top = 360.0
+margin_right = 380.0
+margin_bottom = 420.0
+text = "BID!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pass" type="Button" parent="."]
+margin_left = 700.0
+margin_top = 360.0
+margin_right = 880.0
+margin_bottom = 419.0
+text = "PASS!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Bid" to="." method="_on_Bid_pressed"]
+[connection signal="pressed" from="Pass" to="." method="_on_Pass_pressed"]

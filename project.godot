@@ -14,6 +14,10 @@ config/name="1000"
 run/main_scene="res://Table/Table.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/stretch/aspect="keep"
+
 [global]
 
 main=false
