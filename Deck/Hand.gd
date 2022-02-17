@@ -18,7 +18,6 @@ func set_cards(cards_):
 		#setup_signals()
 
 func on_card_chosen(card_name):
-	print("A")
 	print("Wybrano kartę " + card_name)
 	
 func setup_visuals():

@@ -17,9 +17,9 @@ func is_raising(current_bid):
 	yield(get_tree(), "idle_frame")
 	print("is raising")
 	## temporary code
-	if 0 == 0:
+	if 0 != 0:
 		is_bidding = false
-	elif current_bid < 140:
+	elif current_bid < 120:
 		is_bidding = true
 	else:
 		is_bidding = false

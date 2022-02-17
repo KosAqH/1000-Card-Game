@@ -1,5 +1,6 @@
 extends Node2D
 
+### CONSTANTS ###
 const COLORS = ["hearts", "diamonds", "clubs", "spades"]
 const CARD_TYPES = ["ace", "king", "queen", "jack", "10", "9"]
 const POINTS = {
@@ -12,6 +13,11 @@ const POINTS = {
 }
 const PLAYERS = 3
 
+### SIGNALS ###
+signal auction_done(winner_idx)
+signal stock_given
+
+### VARIABLES ###
 var highest_bid
 
 var deck = []
@@ -24,6 +30,7 @@ var players = []
 
 var scores = {}
 
+### PRELOADED SCENES ### 
 onready var card_scene = preload("res://Card/Card.tscn")
 onready var human_player_scene = preload("res://Player/HumanPlayer.tscn")
 onready var ai_player_scene = preload("res://AI/AIPlayer.tscn")
@@ -32,6 +39,7 @@ func _ready():
 	randomize()
 	setup_cards()
 	setup_players()
+	setup_signals()
 	
 	#yield(get_tree().create_timer(3), "timeout")
 	game_round()
@@ -41,15 +49,17 @@ func game_round():
 	One game round: Dealing cards, auction, and 8 turns of game
 	"""
 	deal_the_cards()
-	var auction_returned = auction()
-	current_player = auction_returned
+	auction()
+#	var auction_returned = auction()
+	"""current_player = auction_returned
+	
 	yield(auction(), "completed")
 	print("Highest bid: " + highest_bid)
 	print("Current player: " + current_player)
 	give_stock()
 	give_cards_back()
 	turn()
-	first_player_round = (first_player_round + 1) % 3
+	first_player_round = (first_player_round + 1) % 3"""
 	
 	
 func deal_the_cards():
@@ -64,10 +74,11 @@ func deal_the_cards():
 		player.set_cards(deck.slice(3+7*i, 9+7*i))
 		i += 1
 		
-func auction() -> int:
+func auction() -> void:
 	for player in players:
 		player.is_bidding = true
 	var cur_player = first_player_round
+	var bid_winner = cur_player
 	highest_bid = 100
 	var no_retired = 0
 	while no_retired < PLAYERS - 1:
@@ -77,18 +88,18 @@ func auction() -> int:
 			yield(players[cur_player].is_raising(highest_bid), "completed")
 			if players[cur_player].is_bidding:
 				highest_bid += 10
+				bid_winner = cur_player
 			else:
 				players[cur_player].is_bidding = false
 				no_retired += 1
 		cur_player = (cur_player + 1) % 3
-	for player in players:
-		if player.is_bidding:
-			return 0
-	return 0
+	emit_signal("auction_done", bid_winner)
 
-func give_stock():
-	var tmp_cards = players[current_player].get_cards() + stock
-	players[current_player].set_cards(tmp_cards)
+func give_stock(winner_idx):
+	current_player = winner_idx
+	var tmp_cards = players[winner_idx].get_cards() + stock
+	players[winner_idx].set_cards(tmp_cards)
+	emit_signal("stock_given")
 	
 func turn():
 	for player in players:
@@ -116,6 +127,10 @@ func setup_players():
 	
 	players = $Players.get_children()
 
+func setup_signals():
+	connect("auction_done", self, "give_stock")
+	connect("stock_given", self, "give_cards_back")
+	
 func on_round_end():
 	calculate_score()
 	if not get_winner():
