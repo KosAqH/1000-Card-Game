@@ -1,6 +1,7 @@
 extends Node2D
 
 ### CONSTANTS ###
+
 const COLORS = ["hearts", "diamonds", "clubs", "spades"]
 const CARD_TYPES = ["ace", "king", "queen", "jack", "10", "9"]
 const POINTS = {
@@ -14,10 +15,13 @@ const POINTS = {
 const PLAYERS = 3
 
 ### SIGNALS ###
-signal auction_done(winner_idx)
-signal stock_given
+
+signal auction_done
+signal stock_given(bid_winner)
+signal cards_given_away
 
 ### VARIABLES ###
+
 var highest_bid
 
 var deck = []
@@ -26,6 +30,7 @@ var stock = [] # musik
 
 var first_player_round = 0 # player that is starting whole round
 var current_player = 0 # player that is starting one turn
+var human_player = 0 #player that is playing on this computer
 var players = []
 
 var scores = {}
@@ -41,7 +46,6 @@ func _ready():
 	setup_players()
 	setup_signals()
 	
-	#yield(get_tree().create_timer(3), "timeout")
 	game_round()
 	
 func game_round():
@@ -50,7 +54,15 @@ func game_round():
 	"""
 	deal_the_cards()
 	auction()
-#	var auction_returned = auction()
+	var bid_winner = yield(self, "auction_done")
+	give_stock(bid_winner)
+	give_cards_back()
+	yield(self, "cards_given_away")	
+	print("PEJA")
+	
+	# auction -> give_cards_away -> turn
+	# turn: move 1 -> move 2 -> move 3 ->check for winner
+	#var auction_returned = auction()
 	"""current_player = auction_returned
 	
 	yield(auction(), "completed")
@@ -95,20 +107,30 @@ func auction() -> void:
 		cur_player = (cur_player + 1) % 3
 	emit_signal("auction_done", bid_winner)
 
-func give_stock(winner_idx):
+func give_stock(winner_idx) -> void:
 	current_player = winner_idx
-	var tmp_cards = players[winner_idx].get_cards() + stock
-	players[winner_idx].set_cards(tmp_cards)
+	#var tmp_cards = players[winner_idx].get_cards() + stock
+	players[winner_idx].add_card(stock[0])
+	players[winner_idx].add_card(stock[1])
+	players[winner_idx].add_card(stock[2])
 	emit_signal("stock_given")
-	
+
 func turn():
 	for player in players:
 		player.make_move()
 		yield(player, "move_done")
-	
 
 func give_cards_back():
-	pass
+	human_player.hand.show_cards()
+	
+	print("Wybierz kartę dla 1. gracza")
+	players[current_player].select_card()
+	yield(players[current_player], "move_done")
+
+	print("Wybierz kartę dla 2. gracza")
+	yield(players[current_player], "move_done")
+
+	emit_signal("cards_given_away")
 
 func setup_cards():
 	for color in COLORS:
@@ -118,9 +140,9 @@ func setup_cards():
 			deck.append(c)
 
 func setup_players():
-	var human = human_player_scene.instance()
-	$Players.add_child(human)
-	human.is_ai_setter(false)
+	human_player = human_player_scene.instance()
+	$Players.add_child(human_player)
+	human_player.is_ai_setter(false)
 	for _i in range(PLAYERS - 1):
 		var ai = ai_player_scene.instance()
 		$Players.add_child(ai)
@@ -128,8 +150,9 @@ func setup_players():
 	players = $Players.get_children()
 
 func setup_signals():
-	connect("auction_done", self, "give_stock")
-	connect("stock_given", self, "give_cards_back")
+	#connect("auction_done", self, "give_stock")
+	#connect("stock_given", self, "give_cards_back")
+	pass
 	
 func on_round_end():
 	calculate_score()

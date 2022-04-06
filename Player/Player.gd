@@ -31,3 +31,6 @@ func is_raising(current_bid):
 	Abstract function, that is called to knew if player is still bidding or passing
 	"""
 	pass
+	
+func select_card():
+	pass

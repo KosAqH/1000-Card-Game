@@ -33,5 +33,4 @@ func _on_CardVisual_input_event(viewport, event, shape_idx):
 	Function sends signal that particular card was chosen
 	"""
 	if (event is InputEventMouseButton && event.pressed):
-		print(get_parent().points)
 		emit_signal("chosen_card", get_parent().name)

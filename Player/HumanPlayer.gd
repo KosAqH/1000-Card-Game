@@ -2,6 +2,7 @@ extends "res://Player/Player.gd"
 
 var player_turn = false
 var card_chosen = false
+var can_select_card = true
 
 onready var auction_ui_scene = preload("res://UI/Auction/auction.tscn")
 
@@ -9,15 +10,23 @@ func set_cards(c):
 	hand.cards = c
 	setup_signals()
 	
+func add_card(c):
+	hand.add_card(c)
+	#hand.setup_signals()
+	#c.get_node("CardVisual").connect("chosen_card", self, "on_card_chosen")
+	
 func setup_signals():
-	print(hand.cards)
 	for c in hand.cards:
-		c.get_node("CardVisual").connect("chosen_card", self, "on_card_chosen")
+		if not c.get_node("CardVisual").is_connected("chosen_card", self, "on_card_chosen"):
+			c.get_node("CardVisual").connect("chosen_card", self, "on_card_chosen")
 
 func on_card_chosen(card_name):
-	print(card_name)
-	player_turn = false
-	emit_signal("move_done")
+	hand.show_cards()
+	print("AMENO")
+	if can_select_card:
+		print("Wybrano karte" + str(card_name))
+		player_turn = false
+		emit_signal("move_done", card_name)
 	
 func make_move():
 	player_turn = true
@@ -39,3 +48,10 @@ func decision_done(dec):
 	$Auction.call_deferred("queue_free")
 	is_bidding = dec
 	print(dec)
+
+func select_card():
+	can_select_card = true
+	
+func foo():
+	for c in hand.cards:
+		print(c.get_node("CardVisual").is_connected("chosen_card", self, "on_card_chosen"))

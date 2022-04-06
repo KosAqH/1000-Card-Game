@@ -6,7 +6,8 @@ var card_type #ace/10/king/queen/jack/9
 
 var FILENAME = "res://Card/CardsTextures/"
 
-var visual = preload("res://Card/CardVisual.tscn")
+var visual_preloaded = preload("res://Card/CardVisual.tscn")
+var visual #child of Card - visuual side
 
 func setup(col, type, pts):
 	"""
@@ -14,6 +15,7 @@ func setup(col, type, pts):
 		col - color
 		type - type
 		pts - points
+		pos - position
 	"""
 	points = pts
 	color = col
@@ -21,19 +23,20 @@ func setup(col, type, pts):
 	
 	FILENAME += type + "_of_" + color + ".png"
 
-func show_card(pos):
+	# Set visuals
+	visual = visual_preloaded.instance()
+	add_child(visual)
+	hide()
+
+func set_card_position(pos):
+	"""s
 	"""
-	Function is adding visual scene to particular card
-	That means that we may see it
-	Parameters:
-		pos - position of card on the screen
-	"""
-	var v = visual.instance()
-	add_child(v)
-	v.setup(FILENAME, pos)
+	visual.position = pos
+	visual.setup(FILENAME, pos)
 
 func print_details():
 	"""
 	Just function for easier debugging - i'm gonna remove it later
 	"""
 	print(str(color) + " " + str(card_type) + " " + str(points))
+
